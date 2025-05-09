@@ -12,31 +12,27 @@ cinephoria-frontend/dist/
 cinephoria-frontend/tmp/
 cinephoria-frontend/out-tsc/
 cinephoria-frontend/bazel-out/
-cinephoria-frontend/npm-debug.log
-cinephoria-frontend/yarn-error.log
+cinephoria-frontend/npm-debug.log*
+cinephoria-frontend/yarn-error.log*
+cinephoria-frontend/.angular/
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# VS Code
+# ========== GENERAL ==========
+*.log
+*.env
+*.env.local
+*.env.production
+*.env.development
+.env.*
 .vscode/
+.idea/
 .history/
-
-# Angular CLI
-cinephoria-frontend/.angular/cache
-.sass-cache/
-.connect.lock
-coverage/
-libpeerconnection.log
-testem.log
-typings/
-
-# System files
 .DS_Store
 Thumbs.db
+
+# ========== COVERAGE / TESTS / OUTPUT ==========
+coverage/
+testem.log
+libpeerconnection.log
+.sass-cache/
+.connect.lock
+typings/
