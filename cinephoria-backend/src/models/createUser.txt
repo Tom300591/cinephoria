@@ -1,0 +1,11 @@
+#Avec Postman
+POST : http://localhost:3000/api/users-rel/register
+
+body : raw + json
+
+{
+    "login":"admin@admin.com",
+    "password":"Admin123!", #Format à respecter
+    "nom":"LAINE",
+    "prenom":"Thomas"
+}

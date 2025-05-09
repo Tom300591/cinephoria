@@ -1,0 +1,41 @@
+# .github/workflows/deploy-frontend.yml
+
+name: Deploy Angular Frontend to Fly.io
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cinephoria-frontend/**'
+
+jobs:
+  deploy:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies and build Angular
+        run: |
+          cd cinephoria-frontend
+          npm ci
+          npm run build
+
+      - name: Setup flyctl and deploy
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy to Fly.io
+        run: |
+          cd cinephoria-frontend
+          flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FRONTEND_FLY_TOKEN }}
+

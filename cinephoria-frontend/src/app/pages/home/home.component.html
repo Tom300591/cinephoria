@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Derniers films ajoutés</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let film of derniersFilms">
+      <div class="card h-100">
+        <img [src]="film.afficheUrl" class="card-img-top" alt="Affiche film">
+        <div class="card-body">
+          <h5 class="card-title">{{film.titre}}</h5>
+          <p class="card-text">{{film.description}}</p>
+          <p><strong>Age minimum :</strong>{{film.ageMinimum}} ans</p>
+          <span *ngIf="film.coupDeCoeur" class="badge bg-warnig text-dark">Coup de coeur</span>
+          <p class="mt-2">⭐ {{ film.note }}/5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

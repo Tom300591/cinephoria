@@ -1,0 +1,42 @@
+# ========== BACKEND ==========
+cinephoria-backend/node_modules/
+cinephoria-backend/.env
+cinephoria-backend/.env.local
+cinephoria-backend/fly.toml
+cinephoria-backend/Dockerfile
+cinephoria-backend/npm-debug.log*
+
+# ========== FRONTEND ==========
+cinephoria-frontend/node_modules/
+cinephoria-frontend/dist/
+cinephoria-frontend/tmp/
+cinephoria-frontend/out-tsc/
+cinephoria-frontend/bazel-out/
+cinephoria-frontend/npm-debug.log
+cinephoria-frontend/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VS Code
+.vscode/
+.history/
+
+# Angular CLI
+cinephoria-frontend/.angular/cache
+.sass-cache/
+.connect.lock
+coverage/
+libpeerconnection.log
+testem.log
+typings/
+
+# System files
+.DS_Store
+Thumbs.db

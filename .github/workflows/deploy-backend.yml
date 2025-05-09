@@ -1,0 +1,23 @@
+# .github/workflows/deploy-backend.yml
+
+name: Deploy Backend to Fly.io
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy Backend App
+    runs-on: ubuntu-latest
+    concurrency: backend-deploy-group
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy backend
+        run: |
+          cd cinephoria-backend
+          flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.BACKEND_FLY_TOKEN }}
