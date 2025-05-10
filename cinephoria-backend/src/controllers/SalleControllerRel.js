@@ -25,7 +25,6 @@ exports.addSalle = async (req, res) => {
 exports.updateSalle = async (req, res) => {
   try {
     const { id } = req.params
-    console.log("Tentative de mise à jour pour la salle ID :", id)
     const [updatedCount] = await Salle.update(req.body, { where: { id } })
     if (updatedCount === 0) return res.status(404).json({ message: 'Salle Introuvable' })
     

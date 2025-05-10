@@ -19,34 +19,46 @@ exports.register = async (req, res) => {
     
     res.status(201).json({message: 'Utilisateur créeé', user})
   } catch(error) {
-    res.status(400).json({message: err.message})
+    res.status(400).json({message: error.message})
   }
 }
 
 exports.login = async (req, res) => {
   
   try {
-  const { login, password } = req.body
-  console.log('Tentative de connexion avec ', login)
+    const { login, password } = req.body
 
-  const user = await User.findOne({ where: { login } })
+    const user = await User.findOne({ where: { login } })
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    console.log('Utilisateur non trouvé')
-    return res.status(401).json({message: 'Identifiants incorrects'})
-  }
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ message: 'Utilisateur non trouvé' })
+    }
 
-  const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await bcrypt.compare(password, user.password)
 
-  if (!isMatch) {
-    console.log('Mot de passe incorrect')
-    return res.status(401).json({message: 'Identifiants incorrects'})
-  }
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Identifiants incorrects' })
+    }
 
-  const token = generateToken(user)
-  res.json({token, role: user.role})
+    const token = generateToken(user)
+    res.json({ token, role: user.role })
   } catch (error) {
-    console.log('Erreur de login :', error)
-    res.status(500).json({message: 'Erreur serveur.', erreur: error.message})
+    res.status(500).json({ message: 'Erreur serveur.', erreur: error.message })
   }
 }
+
+exports.createEmployee = async (req, res) => {
+    const { login, password, nom, prenom } = req.body
+    
+    if (!login || !password || !nom || !prenom) {
+      return res.status(400).json({ message: `Tous les champs (login, password, nom, prénom) sont requis.` })
+    }
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10)
+      const newEmployee = await User.create({ login, password: hashedPassword, nom, prenom, role: 'employe' })
+      const { password: _, ...userSansPassword } = newEmployee.toJSON()
+res.status(201).json({ message: `Employé créé`, user: userSansPassword })
+    } catch (error) {
+      res.status(500).json({ message: `Erreur lors de la création`, error })
+    }
+  }

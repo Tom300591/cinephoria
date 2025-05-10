@@ -31,7 +31,7 @@ const Film = sequelize.define('Film', {
     allowNull: true,
   }
 }, {
-  tableName: 'films'
+  tableName: 'Films'
 })
 
 module.exports = Film

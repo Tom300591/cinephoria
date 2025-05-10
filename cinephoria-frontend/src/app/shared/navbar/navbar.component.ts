@@ -22,7 +22,6 @@ export class NavbarComponent {
     })
 
     this.auth.user$.subscribe((u) => {
-      console.log('Utilisateur reçu dans navbar', u)
       this.user.set(u)
     })
   }

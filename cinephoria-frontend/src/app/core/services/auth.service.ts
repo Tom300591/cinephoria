@@ -48,11 +48,14 @@ export class AuthService {
   }
 
   setUser(user: User): void {
-    console.log('utilisateur stocké :', user)
     return this.userSubject.next(user);
   }
 
   getUser(): User | null {
     return this.userSubject.value;
+  }
+
+  getUserRole(): string | null {
+    return this.userSubject.value?.role || null
   }
 }

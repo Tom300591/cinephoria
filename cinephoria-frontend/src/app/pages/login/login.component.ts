@@ -27,7 +27,6 @@ export class LoginComponent {
         this.authService.login(res.token)
         this.api.getProfile().subscribe({
           next: (profilRes) => {
-            console.log('profil reçu',profilRes.user)
             const user: User = profilRes.user
             this.authService.setUser(profilRes.user)
           },

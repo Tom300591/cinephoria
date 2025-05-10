@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
     host: process.env.POSTGRE_HOST,
     port: process.env.POSTGRE_PORT || 5432,
     dialect: 'postgres',
-    logging: process.env.NODE_ENV === 'production' ? false : console.log,
+    logging:false, //process.env.NODE_ENV === 'production' ? false : console.log,
     dialectOptions: {
       ssl: process.env.NODE_ENV === 'production' ? {
         require: true,

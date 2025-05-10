@@ -1,5 +1,6 @@
 <div class="d-flex align-items-center gap-3" *ngIf="auth.isLoggedIn(); else notConnected">
   <span *ngIf="user()">Bonjour, {{user().prenom}} !</span>
+  <a *ngIf="user()?.role === 'admin'" class="btn btn-warning" routerLink="/admin">Administration</a>
   <button class="btn btn-outline-danger" (click)="logout()">Se déconnecter</button>
 </div>
 

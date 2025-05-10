@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'mon-espace', component: MonEspaceComponent, canActivate:[authGuard]},
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate:[authGuard]},
   { path: 'intranet', component: IntranetComponent },
   { path: '**', redirectTo:'' }
 ];

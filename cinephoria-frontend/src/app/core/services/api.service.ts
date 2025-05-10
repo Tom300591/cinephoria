@@ -24,7 +24,8 @@ export class ApiService {
     })
   }
 
-  register(data: any){
+  register(data: any) {
+    data.login = data.email
     return this.http.post(`${this.baseUrl}/users-rel/register`, data)
   }
 
@@ -48,11 +49,46 @@ export class ApiService {
     return this.http.get<number[]>(`${this.baseUrl}/seances/${seanceId}/sieges-disponible`)
   }
 
+  getSalles() {
+    return this.http.get<any[]>(`${this.baseUrl}/salles`)
+  }
+
+  postSeance(data: any) {
+    return this.http.post(`${this.baseUrl}/seances`, data, {
+      headers: {
+        Authorization: `Bearer ${this.storage.getItem('token')}`
+      }
+    })
+  }
+
   postReservation(data: any) {
     return this.http.post(`${this.baseUrl}/reservations`, data, {
       headers: {
         Authorization:`Bearer ${this.storage.getItem('token')}`
       }
     })
+  }
+
+  postFilm(data:any) {
+    return this.http.post(`${this.baseUrl}/films`, data, {
+      headers: {
+        Authorization: `Bearer ${this.storage.getItem('token')}`
+      }
+    })
+  }
+
+  postSalle(data: any) {
+    return this.http.post(`${this.baseUrl}/salles`, data, {
+      headers: {
+        Authorization: `Bearer ${this.storage.getItem('token')}`
+      }
+    })
+  }
+
+  postEmploye(employe: any): Observable<any> {
+    const token = this.storage.getItem('token')
+    const headers = { 'Authorization': `Bearer ${token}` }
+    console.log(headers,token)
+    return this.http.post(`${this.baseUrl}/users-rel/employes`, employe, { headers })
   }
 }

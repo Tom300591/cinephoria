@@ -1,1 +1,55 @@
-<p>admin works!</p>
+
+<h1>Administration</h1>
+
+<hr>
+<h2>Ajouter un film</h2>
+<form (ngSubmit)="addFilm()" #filmForm="ngForm" class="mb-4">
+  <input [(ngModel)]="film.titre" name="titre" placeholder="Titre" required class="form-control mb-2">
+  <input [(ngModel)]="film.affiche" name="affiche" placeholder="Url affiche" required class="form-control mb-2">
+  <textarea [(ngModel)]="film.resume" name="resume" placeholder="Résumé" required class="form-control mb-2"></textarea>
+  <input [(ngModel)]="film.genre" name="genre" placeholder="Genre" class="form-control mb-2">
+  <input type="number" [(ngModel)]="film.duree" name="duree" placeholder="Durée (min)" class="form-control mb-2">
+  <input type="number" [(ngModel)]="film.ageMinimum" name="age" placeholder="Âge minimum" class="form-control mb-2">
+  <label><input type="checkbox" [(ngModel)]="film.coupDeCoeur" name="coupDeCoeur"> Coup de cœur</label>
+  <br>
+  <button type="submit" class="btn btn-primary mt-2">Ajouter film</button>
+</form>
+
+<hr>
+<h2>Ajouter une salle</h2>
+
+<form (ngSubmit)="addSalle()" #salleForm="ngForm" class="mb-4">
+  <input [(ngModel)]="salle.nom" name="nomSalle" placeholder="Nom de la salle" required class="form-control mb-2">
+  <input type="number" [(ngModel)]="salle.capacite" name="capaciteSalle" placeholder="Capacité" required class="form-control mb-2">
+  <button type="submit" class="btn btn-primary mt-2">Ajouter salle</button>
+</form>
+
+<hr>
+<h2>Ajouter une séance</h2>
+
+<form (ngSubmit)="addSeance()" #seanceForm="ngForm" class="mb-4">
+  <select [(ngModel)]="seance.filmId" name="filmId" required class="form-control mb-2">
+    <option value="" disabled selected>Choisir un film</option>
+    <option *ngFor="let film of films" [value]="film.id">{{ film.titre }}</option>
+  </select>
+
+  <select [(ngModel)]="seance.salleId" name="salleId" required class="form-control mb-2">
+    <option value="" disabled selected>Choisir une salle</option>
+    <option *ngFor="let salle of salles" [value]="salle.id">{{ salle.nom }}</option>
+  </select>
+
+  <input type="datetime-local" [(ngModel)]="seance.dateHeure" name="dateHeure" required class="form-control mb-2">
+
+  <button type="submit" class="btn btn-primary mt-2">Ajouter séance</button>
+</form>
+<hr>
+<h2>Ajouter un employé</h2>
+
+<form (ngSubmit)="addEmploye()" #employeForm="ngForm" class="mb-4">
+  <input [(ngModel)]="employe.nom" name="nom" placeholder="Nom" required class="form-control mb-2">
+  <input [(ngModel)]="employe.prenom" name="prenom" placeholder="Prénom" required class="form-control mb-2">
+  <input [(ngModel)]="employe.login" name="login" placeholder="Email" required class="form-control mb-2">
+  <input [(ngModel)]="employe.password" name="password" placeholder="Mot de passe" required type="password" class="form-control mb-2">
+  <button type="submit" class="btn btn-primary mt-2">Ajouter employé</button>
+</form>
+
