@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
-  res.json({message: `Bienvenue sur l'API Cinéphoria`})
+  res.json({message: `Bienvenue sur l'API Cinéphoria-backend`})
 })
 
 const userRoutesRelational = require('./routes/UserRoutesRel');
