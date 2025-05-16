@@ -1,13 +1,14 @@
-# .github/workflows/deploy-frontend.yml test
+# .github/workflows/deploy-frontend.yml
 
 name: Deploy Angular Frontend to Fly.io
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - 'cinephoria-frontend/**'
+      - "cinephoria-frontend/**"
 
 jobs:
   deploy:
