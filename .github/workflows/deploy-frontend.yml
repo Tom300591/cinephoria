@@ -7,8 +7,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "cinephoria-frontend/**"
 
 jobs:
   deploy:
