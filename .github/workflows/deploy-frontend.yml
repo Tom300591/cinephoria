@@ -3,7 +3,6 @@
 name: Deploy Angular Frontend to Fly.io
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
