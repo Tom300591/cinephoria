@@ -15,21 +15,21 @@ exports.getAllFilms = async (req, res) => {
 //Ajouter des films
 exports.addFilm = async (req, res) => {
   try {
-    const { titre, genre, description, duree, ageMinimum, labelCoupDeCoeur } =
+    const { titre, genre, resume, duree, ageMinimum, coupDeCoeur } =
       req.body;
 
     const newfilm = await Film.create({
       titre,
       genre,
-      description,
+      resume,
       duree,
       ageMinimum,
-      labelCoupDeCoeur,
+      coupDeCoeur,
     });
     res.status(201).json(newfilm);
   } catch (error) {
     console.error("Erreur addFilm:", error.message);
-    res.status(400).json({ message: "Errur lors de l'ajout du film" });
+    res.status(400).json({ message: "Erreur lors de l'ajout du film" });
   }
 };
 

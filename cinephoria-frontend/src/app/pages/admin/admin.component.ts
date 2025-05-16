@@ -33,10 +33,12 @@ export class AdminComponent {
 
   //Modèle pour séance
   seance = {
-    filmId: null,
-    salleId: null,
-    dateHeure: '',
-  };
+  filmId: null as number | null,
+  salleId: null,
+  heureDebut: '',
+  heureFin: '',
+  qualite: '',
+};
 
   //Modèle pour employé
   employe = {
@@ -50,14 +52,26 @@ export class AdminComponent {
   //Liste des films et des salles
   films: any[] = [];
   salles: any[] = [];
+  selectedFilmDuration: number = 0
 
   user: any;
 
   //Appel API pour récupérer les films et les salles
   ngOnInit(): void {
-    this.api.getFilms().subscribe((films) => (this.films = films));
-    this.api.getSalles().subscribe((salles) => (this.salles = salles));
-  }
+  console.log('ngOnInit called');
+
+  // Récupération des films
+  this.api.getFilms().subscribe((films) => {
+    this.films = films;
+    if (this.films.length > 0) {
+      this.seance.filmId = this.films[0].id;
+      this.onFilmChange(this.seance.filmId);
+    }
+  });
+
+  // Récupération des salles
+  this.api.getSalles().subscribe((salles) => (this.salles = salles));
+}
 
   //Méthode pour ajouter un film
   addFilm() {
@@ -76,6 +90,40 @@ export class AdminComponent {
   }
 
   //Méthode pour ajouter une séance
+  onFilmChange(filmId: number | null) {
+  if (filmId === null) {
+    this.selectedFilmDuration = 0;
+    this.seance.heureFin = '';
+  } else {
+    const selectedFilm = this.films.find(film => film.id === filmId);
+    if (selectedFilm) {
+      this.selectedFilmDuration = selectedFilm.duree || 0;
+      this.updateHeureFin();
+    }
+  }
+}
+
+  updateHeureFin() {
+
+  if (this.seance.heureDebut && this.selectedFilmDuration > 0) {
+    const dateDebut = new Date(this.seance.heureDebut);
+
+    dateDebut.setMinutes(dateDebut.getMinutes() + this.selectedFilmDuration);
+
+    const year = dateDebut.getFullYear();
+    const month = String(dateDebut.getMonth() + 1).padStart(2, '0');
+    const day = String(dateDebut.getDate()).padStart(2, '0');
+    const hours = String(dateDebut.getHours()).padStart(2, '0');
+    const minutes = String(dateDebut.getMinutes()).padStart(2, '0');
+
+    this.seance.heureFin = `${year}-${month}-${day}T${hours}:${minutes}`;
+  } else {
+    console.error('Erreur : heureDebut ou durée invalide');
+  }
+
+}
+
+
   addSeance() {
     this.api.postSeance(this.seance).subscribe({
       next: () => alert('Séance ajoutée !'),
@@ -89,7 +137,6 @@ export class AdminComponent {
       this.api.postEmploye(this.employe).subscribe({
         next: () => {
           alert('Employé ajouté avec succès')
-          //Réinitialise le formulaire après ajout
           this.employe.login = ''
           this.employe.password=''
         },

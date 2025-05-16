@@ -6,11 +6,15 @@ const Film = sequelize.define('Film', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  affiche: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   genre: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
+  resume: {
     type: DataTypes.TEXT,
     allowNull: true,
   },
@@ -22,7 +26,7 @@ const Film = sequelize.define('Film', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  labelCoupDeCoeur: {
+  coupDeCoeur: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
