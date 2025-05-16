@@ -18,6 +18,9 @@ jobs:
       - name: List files in cinephoria-backend
         run: ls -l cinephoria-backend
 
+      - name: Affiche contenu du fly.toml
+        run: cat cinephoria-backend/fly.toml
+
       - name: Deploy backend
         run: flyctl deploy --remote-only -c cinephoria-backend/fly.toml
         working-directory: ./cinephoria-backend
