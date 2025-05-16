@@ -2,7 +2,6 @@
 cinephoria-backend/node_modules/
 cinephoria-backend/.env
 cinephoria-backend/.env.local
-cinephoria-backend/Dockerfile
 cinephoria-backend/npm-debug.log*
 
 # ========== FRONTEND ==========
