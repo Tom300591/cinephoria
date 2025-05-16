@@ -22,7 +22,7 @@ jobs:
         run: cat cinephoria-backend/fly.toml
 
       - name: Deploy backend
-        run: flyctl deploy --remote-only -c cinephoria-backend/fly.toml
+        run: flyctl deploy --remote-only --config cinephoria-backend/fly.toml --app cinephoria-backend --cwd cinephoria-backend
         working-directory: ./cinephoria-backend
         env:
          FLY_API_TOKEN: ${{ secrets.BACKEND_FLY_TOKEN }}
