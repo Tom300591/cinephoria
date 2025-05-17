@@ -1,22 +1,30 @@
 const { Sequelize } = require('sequelize')
 
-const sequelize = new Sequelize(
-  process.env.POSTGRE_DB,
-  process.env.POSTGRE_USER,
-  process.env.POSTGRE_PASSWORD,
-  {
-    host: process.env.POSTGRE_HOST,
-    port: process.env.POSTGRE_PORT || 5432,
-    dialect: 'postgres',
-    logging:false, //process.env.NODE_ENV === 'production' ? false : console.log,
-    dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production' ? {
-        require: true,
-        rejectUnauthorized: false,
-      } : false
-    }
-  }
-)
+const isProd = process.env.NODE_ENV === 'production';
+
+const sequelize = isProd
+  ? new Sequelize(process.env.DATABASE_URL, {
+      dialect: 'postgres',
+      protocol: 'postgres',
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
+      logging: false,
+    })
+  : new Sequelize(
+      process.env.POSTGRE_DB,
+      process.env.POSTGRE_USER,
+      process.env.POSTGRE_PASSWORD,
+      {
+        host: process.env.POSTGRE_HOST,
+        port: process.env.POSTGRE_PORT || 5432,
+        dialect: 'postgres',
+        logging: console.log,
+      }
+    )
 
 sequelize.authenticate()
   .then(() => console.log('Connexion PostgreSQL OK'))
