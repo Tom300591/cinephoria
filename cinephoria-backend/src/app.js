@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const sequelize = require('./database/postgre');
-const connectMongo = require('./database/mongo');
+// const connectMongo = require('./database/mongo');
 
 const app = express();
 
@@ -57,7 +57,7 @@ Reservation.belongsTo(User, { foreignKey: 'userId' });
 sequelize.sync({ alter: true })  
   .then(() => {
     console.log('PostgreSQL synchronisé');
-    connectMongo();
+    // connectMongo();
   })
   .catch((err) => {
     console.error('Erreur de synchronisation PostgreSQL:', err);
