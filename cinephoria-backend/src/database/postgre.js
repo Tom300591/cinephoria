@@ -30,6 +30,4 @@ sequelize.authenticate()
   .then(() => console.log('Connexion PostgreSQL OK'))
   .catch(err => console.error('Erreur de connexion PostgreSQL :', err))
 
-console.log('DATABESE_URL ===>', process.env.DATABASE_URL)
-
 module.exports = sequelize
